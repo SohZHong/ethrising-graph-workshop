@@ -2,5 +2,10 @@
 src = "src"
 out = "out"
 libs = ["lib"]
+etherscan_api_key = "${ETHERSCAN_API_KEY}"
+eth_rpc_url = "${ETH_RPC_URL}"
+
+[rpc_endpoints]
+sepolia = "https://ethereum-sepolia-rpc.publicnode.com"
 
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

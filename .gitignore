@@ -1,0 +1,5 @@
+/contract/cache
+/contract/out
+
+*/.env
+.DS_Store
