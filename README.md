@@ -83,7 +83,7 @@ Once your subgraph is written, run the following commands:
 
 Authenticate and deploy your subgraph. The deploy key can be found on the subgraph's page in Subgraph Studio.
 
-![Deploy key](/img/deploy_key.png)
+![Deploy key](/img/deploy-key.png)
 
     ```sh
 
