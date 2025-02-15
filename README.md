@@ -77,20 +77,19 @@ When you **deploy** a subgraph, you push it to [Subgraph Studio](https://thegrap
 
 Once your subgraph is written, run the following commands:
 
-    ```sh
-    graph codegen && graph build
-    ```
+```sh
+graph codegen && graph build
+```
 
 Authenticate and deploy your subgraph. The deploy key can be found on the subgraph's page in Subgraph Studio.
 
 ![Deploy key](/img/deploy-key.png)
 
-    ```sh
+```sh
+graph auth <DEPLOY_KEY>
 
-    graph auth <DEPLOY_KEY>
-
-    graph deploy <SUBGRAPH_SLUG>
-    ```
+graph deploy <SUBGRAPH_SLUG>
+```
 
 The CLI will ask for a version label. It's strongly recommended to use [semantic versioning](https://semver.org/), e.g. `0.0.1`.
 
