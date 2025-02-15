@@ -1,12 +1,14 @@
 # Ethrising Graph Workshop
 
 ## 📌 Prerequisites
+
 - A crypto wallet
 - A smart contract address on [supported network](https://thegraph.com/docs/en/supported-networks/).
 - [Node.js](https://nodejs.org/) installed (v20.0.0 above)
 - Package manager of your choice (`npm`, `pnpm`, `yarn`)
 
 ## 🛠️ How to Build a Subgraph
+
 ### 1. Create a subgraph in Subgraph Studio
 
 Go to [Subgraph Studio](https://thegraph.com/studio/) and connect your wallet.
@@ -30,6 +32,7 @@ Using [yarn](https://yarnpkg.com/):
 ```sh
 yarn global add @graphprotocol/graph-cli
 ```
+
 ### 3. Initialize your subgraph
 
 > You can find commands for your specific subgraph on the subgraph page in [Subgraph Studio](https://thegraph.com/studio/).
@@ -56,7 +59,7 @@ When you initialize your subgraph, the CLI will ask you for the following inform
 - **Index contract events as entities**: It is suggested that you set this to true, as it will automatically add mappings to your subgraph for every emitted event.
 
 See the following screenshot for an example for what to expect when initializing your subgraph:
-<Image
+![Subgraph command](/img/graph-init-command.png)
 
 ### 4. Edit your subgraph
 
@@ -80,7 +83,7 @@ Once your subgraph is written, run the following commands:
 
 Authenticate and deploy your subgraph. The deploy key can be found on the subgraph's page in Subgraph Studio.
 
-![Deploy key](/img/subgraph-studio-deploy-key.jpg)
+![Deploy key](/img/deploy_key.png)
 
     ```sh
 
