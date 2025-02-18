@@ -19,11 +19,9 @@ describe("Describe entity assertions", () => {
   beforeAll(() => {
     let user = Address.fromString("0x0000000000000000000000000000000000000001")
     let previousNum = BigInt.fromI32(234)
-    let timestamp = BigInt.fromI32(234)
     let newCounterIncrementedEvent = createCounterIncrementedEvent(
       user,
-      previousNum,
-      timestamp
+      previousNum
     )
     handleCounterIncremented(newCounterIncrementedEvent)
   })
@@ -49,12 +47,6 @@ describe("Describe entity assertions", () => {
       "CounterIncremented",
       "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
       "previousNum",
-      "234"
-    )
-    assert.fieldEquals(
-      "CounterIncremented",
-      "0xa16081f360e3847006db660bae1c6d1b2e17ec2a-1",
-      "timestamp",
       "234"
     )
 

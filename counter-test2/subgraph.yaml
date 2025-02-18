@@ -8,9 +8,9 @@ dataSources:
     name: Counter
     network: sepolia
     source:
-      address: '0xA47220Fd40f4953303Dc05C1F89b32347A046262'
+      address: '0x02578B3aD73AbE262dB1Bd871ee94761f5E59180'
       abi: Counter
-      startBlock: 7727542
+      startBlock: 7713481
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -22,35 +22,34 @@ dataSources:
         - name: Counter
           file: ./abis/Counter.json
       eventHandlers:
-        - event: CounterIncremented(indexed address,uint256)
+        - event: CounterIncremented(indexed address,uint256,uint256)
           handler: handleCounterIncremented
-        - event: NumberSet(indexed address,uint256)
+        - event: NumberSet(indexed address,uint256,uint256)
           handler: handleNumberSet
-      file: ./src/mapping.ts
+      file: ./src/counter.ts
   - kind: ethereum
     name: Counter2
     network: sepolia
     source:
-      address: '0xBF8E6ae1295F486dCc15125F8EDc44dAfB92340e'
+      address: '0x4A503Bc84B203b5a1E1715b3f3729DD3bCbD8A43'
       abi: Counter2
-      startBlock: 7727542
+      startBlock: 7726994
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
+        - CounterIncremented
+        - NumberSet
         - ResetTriggered
-        - ThresholdReached
       abis:
         - name: Counter2
           file: ./abis/Counter2.json
       eventHandlers:
-        - event: CounterIncremented(indexed address,uint256)
+        - event: CounterIncremented(indexed address,uint256,uint256)
           handler: handleCounterIncremented
-        - event: NumberSet(indexed address,uint256)
+        - event: NumberSet(indexed address,uint256,uint256)
           handler: handleNumberSet
-        - event: ResetTriggered(uint256)
+        - event: ResetTriggered(uint256,uint256)
           handler: handleResetTriggered
-        - event: ThresholdReached(uint256,uint256)
-          handler: handleThresholdReached
-      file: ./src/mapping.ts
+      file: ./src/counter-2.ts

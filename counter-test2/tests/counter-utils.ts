@@ -4,7 +4,8 @@ import { CounterIncremented, NumberSet } from "../generated/Counter/Counter"
 
 export function createCounterIncrementedEvent(
   user: Address,
-  previousNum: BigInt
+  previousNum: BigInt,
+  timestamp: BigInt
 ): CounterIncremented {
   let counterIncrementedEvent = changetype<CounterIncremented>(newMockEvent())
 
@@ -19,11 +20,21 @@ export function createCounterIncrementedEvent(
       ethereum.Value.fromUnsignedBigInt(previousNum)
     )
   )
+  counterIncrementedEvent.parameters.push(
+    new ethereum.EventParam(
+      "timestamp",
+      ethereum.Value.fromUnsignedBigInt(timestamp)
+    )
+  )
 
   return counterIncrementedEvent
 }
 
-export function createNumberSetEvent(user: Address, num: BigInt): NumberSet {
+export function createNumberSetEvent(
+  user: Address,
+  num: BigInt,
+  timestamp: BigInt
+): NumberSet {
   let numberSetEvent = changetype<NumberSet>(newMockEvent())
 
   numberSetEvent.parameters = new Array()
@@ -33,6 +44,12 @@ export function createNumberSetEvent(user: Address, num: BigInt): NumberSet {
   )
   numberSetEvent.parameters.push(
     new ethereum.EventParam("num", ethereum.Value.fromUnsignedBigInt(num))
+  )
+  numberSetEvent.parameters.push(
+    new ethereum.EventParam(
+      "timestamp",
+      ethereum.Value.fromUnsignedBigInt(timestamp)
+    )
   )
 
   return numberSetEvent

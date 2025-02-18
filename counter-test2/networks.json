@@ -1,0 +1,11 @@
+{
+  "sepolia": {
+    "Counter": {
+      "address": "0x02578B3aD73AbE262dB1Bd871ee94761f5E59180",
+      "startBlock": 7713481
+    },
+    "Counter2": {
+      "address": "0x4A503Bc84B203b5a1E1715b3f3729DD3bCbD8A43"
+    }
+  }
+}

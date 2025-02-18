@@ -4,10 +4,11 @@ type User @entity {
   numberSets: [NumberSet]! @derivedFrom(field: "user")
 }
 
-type CounterIncremented @entity(timeseries: true) {
-  id: Int8!
+type CounterIncremented @entity(immutable: true) {
+  id: Bytes!
   user: User! # address
   previousNum: BigInt! # uint256
+  timestamp: BigInt! # uint256
   blockNumber: BigInt!
   timestamp: Timestamp!
   transactionHash: Bytes!
@@ -17,6 +18,7 @@ type NumberSet @entity(timeseries: true) {
   id: Int8!
   user: User! # address
   num: BigInt! # uint256
+  timestamp: BigInt! # uint256
   blockNumber: BigInt!
   timestamp: Timestamp!
   transactionHash: Bytes!
@@ -25,6 +27,7 @@ type NumberSet @entity(timeseries: true) {
 type ResetTriggered @entity(timeseries: true) {
   id: Int8!
   oldNumber: BigInt! # uint256
+  timestamp: BigInt! # uint256
   blockNumber: BigInt!
   timestamp: Timestamp!
   transactionHash: Bytes!
@@ -34,13 +37,14 @@ type DailyCounterStats
   @aggregation(intervals: ["hour", "day"], source: "NumberSet") {
   id: Int8!
   user: User!
-  timestamp: Timestamp!
+  timetamp: Timestamp!
   largestNumber: BigInt! @aggregate(fn: "max", arg: "num")
 }
 
 type DailyResetTriggered
   @aggregation(intervals: ["hour", "day"], source: "ResetTriggered") {
   id: Int8!
+  user: User!
   timestamp: Timestamp!
-  resetTriggered: Int8! @aggregate(fn: "count", cumulative: true)
+  resetTriggered: Int8! @aggregate(fn: "id", cumulative: true)
 }

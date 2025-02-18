@@ -20,6 +20,12 @@
         "internalType": "uint256",
         "name": "previousNum",
         "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "timestamp",
+        "type": "uint256"
       }
     ],
     "name": "CounterIncremented",
@@ -38,6 +44,12 @@
         "indexed": false,
         "internalType": "uint256",
         "name": "num",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "timestamp",
         "type": "uint256"
       }
     ],
