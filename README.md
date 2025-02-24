@@ -33,7 +33,8 @@ Under `entities`, add these two lines
 - NumberSet
 ```
 
-And your final result will look like this:
+Your final result will look like this:
+
 ![Added entities](/img/add-entities.png)
 
 #### 2.2 Add event handlers
