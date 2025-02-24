@@ -1,17 +1,39 @@
+# This entity logs each time the counter is incremented.
+# It's immutable, meaning once data is recorded, it cannot be modified.
 type CounterIncremented @entity(immutable: true) {
-  id: Bytes!
-  user: Bytes! # address
-  previousNum: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  id: Bytes! # Unique identifier (e.g., transaction hash)
+  user: User! # Links to the User entity (tracks which user triggered the increment)
+  previousNum: BigInt! # Stores the previous number before incrementing
+  blockNumber: BigInt! # Block number when this event occurred
+  blockTimestamp: BigInt! # Timestamp of the block
+  transactionHash: Bytes! # Transaction that triggered the event
 }
 
-type NumberSet @entity(immutable: true) {
-  id: Bytes!
-  user: Bytes! # address
-  num: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+# This entity tracks whenever a new number is explicitly set.
+# It uses timeseries indexing, meaning The Graph will optimize it for time-based queries.
+type NumberSet @entity(timeseries: true) {
+  id: Int8! # Unique identifier for the event
+  user: Bytes! # Address of the user who set the number
+  num: BigInt! # The number that was set
+  blockNumber: BigInt! # Block number when this event occurred
+  timestamp: Timestamp! # Time when this event happened
+  transactionHash: Bytes! # Transaction hash for reference
+}
+
+# This entity represents a user and their interaction history.
+# The derivedFrom directive allows us to retrieve all CounterIncremented events associated with this user.
+type User @entity {
+  id: Bytes! # The user’s blockchain address
+  counterIncremented: [CounterIncremented!]! @derivedFrom(field: "user")
+  # This means we don’t store an array manually
+  # Graph auto-populates this field by linking all CounterIncremented entities where user = id.
+}
+
+# This entity aggregates NumberSet events into daily summaries.
+# It stores the maximum number set each day using the @aggregate directive.
+type DailyNumber @aggregation(source: "NumberSet", intervals: ["day"]) {
+  id: Int8! # Unique identifier for the daily aggregation
+  num: BigInt! @aggregate(fn: "max", arg: "num")
+  # This ensures that for each day, we store only the highest 'num' set by users.
+  timestamp: Timestamp! # Timestamp representing the day
 }
