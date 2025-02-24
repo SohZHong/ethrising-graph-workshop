@@ -8,7 +8,7 @@ dataSources:
     name: Counter
     network: sepolia
     source:
-      address: "0xA47220Fd40f4953303Dc05C1F89b32347A046262"
+      address: '0xA47220Fd40f4953303Dc05C1F89b32347A046262'
       abi: Counter
       startBlock: 7727542
     mapping:
@@ -26,4 +26,33 @@ dataSources:
           handler: handleCounterIncremented
         - event: NumberSet(indexed address,uint256)
           handler: handleNumberSet
+      file: ./src/counter.ts
+  - kind: ethereum
+    name: Counter2
+    network: sepolia
+    source:
+      address: '0xBF8E6ae1295F486dCc15125F8EDc44dAfB92340e'
+      abi: Counter2
+      startBlock: 7727542
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.9
+      language: wasm/assemblyscript
+      entities:
+        - ResetTriggered
+        - ThresholdReached
+        - CounterIncremented
+        - NumberSet
+      abis:
+        - name: Counter2
+          file: ./abis/Counter2.json
+      eventHandlers:
+        - event: CounterIncremented(indexed address,uint256)
+          handler: handleCounterIncremented
+        - event: NumberSet(indexed address,uint256)
+          handler: handleNumberSet
+        - event: ResetTriggered(uint256)
+          handler: handleResetTriggered
+        - event: ThresholdReached(uint256,uint256)
+          handler: handleThresholdReached
       file: ./src/counter.ts

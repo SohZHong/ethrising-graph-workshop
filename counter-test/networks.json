@@ -3,6 +3,9 @@
     "Counter": {
       "address": "0xA47220Fd40f4953303Dc05C1F89b32347A046262",
       "startBlock": 7727542
+    },
+    "Counter2": {
+      "address": "0xBF8E6ae1295F486dCc15125F8EDc44dAfB92340e"
     }
   }
 }

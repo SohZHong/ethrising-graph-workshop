@@ -37,3 +37,20 @@ type DailyNumber @aggregation(source: "NumberSet", intervals: ["day"]) {
   # This ensures that for each day, we store only the highest 'num' set by users.
   timestamp: Timestamp! # Timestamp representing the day
 }
+
+type ResetTriggered @entity(immutable: true) {
+  id: Bytes!
+  oldNumber: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ThresholdReached @entity(immutable: true) {
+  id: Bytes!
+  currentNumber: BigInt! # uint256
+  threshold: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

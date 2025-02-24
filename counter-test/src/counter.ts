@@ -52,3 +52,37 @@ export function handleNumberSet(event: NumberSetEvent): void {
 
   entity.save(); // Save the data into The Graph.
 }
+
+// Add the code from the generated counter-2.ts under here and delete counter-2.ts
+import {
+  ResetTriggered as ResetTriggeredEvent,
+  ThresholdReached as ThresholdReachedEvent,
+} from '../generated/Counter2/Counter2';
+import { ResetTriggered, ThresholdReached } from '../generated/schema';
+
+export function handleResetTriggered(event: ResetTriggeredEvent): void {
+  let entity = new ResetTriggered(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  );
+  entity.oldNumber = event.params.oldNumber;
+
+  entity.blockNumber = event.block.number;
+  entity.blockTimestamp = event.block.timestamp;
+  entity.transactionHash = event.transaction.hash;
+
+  entity.save();
+}
+
+export function handleThresholdReached(event: ThresholdReachedEvent): void {
+  let entity = new ThresholdReached(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  );
+  entity.currentNumber = event.params.currentNumber;
+  entity.threshold = event.params.threshold;
+
+  entity.blockNumber = event.block.number;
+  entity.blockTimestamp = event.block.timestamp;
+  entity.transactionHash = event.transaction.hash;
+
+  entity.save();
+}
