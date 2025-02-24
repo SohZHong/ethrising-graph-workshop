@@ -1,36 +1,86 @@
 import { gql, request } from 'graphql-request';
 
-const url = 'INSERT ENDPOINT URL HERE';
+// The Graph API endpoint - this URL points to the hosted subgraph
+const url =
+  'https://api.studio.thegraph.com/query/90479/counter-test/version/latest';
 
-const SEARCH_QUERY_1 = gql`INSERT QUERY HERE`;
-const SEARCH_QUERY_2 = gql`INSERT QUERY HERE`;
+/**
+ * GraphQL Query 1: Fetch recent events
+ * Retrieves the latest 5 `CounterIncremented` and `NumberSet` events.
+ */
+const SEARCH_QUERY_1 = gql`
+  {
+    counterIncrementeds(first: 5) {
+      id
+      previousNum
+      blockNumber
+    }
+    numberSets(first: 5) {
+      id
+      user
+      num
+      blockNumber
+      timestamp
+      transactionHash
+    }
+  }
+`;
 
+/**
+ * GraphQL Query 2: Fetch data for a specific user
+ * Retrieves all `CounterIncremented` events related to a given user.
+ */
+const SEARCH_QUERY_2 = gql`
+  query getUser($address: String!) {
+    user(id: $address) {
+      id
+      counterIncremented {
+        blockNumber
+        blockTimestamp
+        id
+        previousNum
+        transactionHash
+      }
+    }
+  }
+`;
+
+/**
+ * Fetches all recent event data (first 5 records).
+ * This function queries The Graph API and returns indexed blockchain events.
+ */
 export async function fetchAllData(): Promise<any> {
   try {
     const response = await request(url, SEARCH_QUERY_1);
     if (!response) {
-      throw new Error('Data not found');
+      throw new Error('Data not found'); // Ensure we handle empty responses
     }
-    return response;
+    return response; // Return data for frontend display
   } catch (error) {
     console.error('GraphQL Request Error:', error);
     throw error;
   }
 }
 
+/**
+ * Fetches data related to a specific user by their address.
+ * If the search query is empty, it returns null.
+ */
 export async function fetchUserData(searchQuery: string): Promise<any> {
-  // Return empty
+  // Return null if no address is provided
   if (!searchQuery) {
-    console.warn('fetchData: searchQuery is empty, returning null');
+    console.warn('fetchUserData: searchQuery is empty, returning null');
     return null;
   }
 
   try {
+    // Execute query with dynamic user address parameter
     const response = await request(url, SEARCH_QUERY_2, {
-      search: searchQuery,
+      address: searchQuery,
     });
+
     if (!response) {
-      throw new Error('Data not found');
+      throw new Error('Data not found'); // Ensure valid response handling
     }
     return response;
   } catch (error) {
