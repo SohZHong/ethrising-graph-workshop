@@ -4,6 +4,8 @@
 
 This guide explains how to track multiple smart contracts using The Graph by adding an additional contract and merging entities.
 
+This guide will resume from where we ended during the workshop (See `main` branch for cloning)
+
 ### 1. Add Another Contract Address
 
 To start tracking a second smart contract, run the following command:
