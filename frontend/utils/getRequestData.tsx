@@ -36,10 +36,8 @@ const SEARCH_QUERY_2 = gql`
       id
       counterIncremented {
         blockNumber
-        blockTimestamp
         id
         previousNum
-        transactionHash
       }
     }
   }
@@ -55,7 +53,7 @@ export async function fetchAllData(): Promise<any> {
     if (!response) {
       throw new Error('Data not found'); // Ensure we handle empty responses
     }
-    return response; // Return data for frontend display
+    return response as any; // Return data for frontend display
   } catch (error) {
     console.error('GraphQL Request Error:', error);
     throw error;
@@ -82,7 +80,7 @@ export async function fetchUserData(searchQuery: string): Promise<any> {
     if (!response) {
       throw new Error('Data not found'); // Ensure valid response handling
     }
-    return response;
+    return response as any;
   } catch (error) {
     console.error('GraphQL Request Error:', error);
     throw error;
